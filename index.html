@@ -37,28 +37,159 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    console.log("EXERCISE #1: Inventors born in the 1500's:");
+    const inventors1500 = inventors.filter(function (person) {
+      return (person.year >= 1500 && person.year < 1600);
+    });
+    console.table(inventors1500);
+    console.log("");
+    console.log("");
+
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    console.log("EXERCISE #2: All inventors' first and last names:");
+    const inventorsFirstLast = inventors.map(function (person) {
+      const firstName = person.first;
+      const lastName = person.last;
+      const fullName = person.first + " " + person.last;
+      return fullName;
+    });
+    console.log(inventorsFirstLast);
+    console.log("");
+    console.log("");
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    console.log("EXERCISE #3: All inventors sorted by their birthdate from oldest to youngest:");
+    const compareBdays = function (a, b) {
+      const aBday = a.year;
+      const bBday = b.year;
+
+      let comparison = 0;
+      if (aBday > bBday) {
+        comparison = 1;
+      } else if (aBday < bBday) {
+        comparison = -1;
+      }
+
+      return comparison * -1;
+    };
+    const sortedBdays = inventors.sort(compareBdays);
+    console.table(sortedBdays);
+    console.log("");
+    console.log("");
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    console.log("EXERCISE #4: The total number of years lived by all inventors:");
+    const yearsLived = [];
+    const yearsPerson = function (person) {
+      const years = person.passed - person.year;
+      yearsLived.push(years);
+    };
+
+    for (let person of inventors) {
+      yearsPerson(person);
+    }
+
+    let total = 0;
+    for (let years of yearsLived) {
+      total += years;
+    }
+    console.log(total);
+    console.log("");
+    console.log("");
+
 
     // 5. Sort the inventors by years lived
+    console.log("EXERCISE #5: All inventors sorted by number of years lived:");
+    const compareYears = function (a, b) {
+      const aYearsLived = a.passed - a.year;
+      const bYearsLived = b.passed - b.year;
+      let comparison = 0;
+      if (aYearsLived > bYearsLived) {
+        comparison = 1;
+      } else if (aYearsLived < bYearsLived) {
+        comparison = -1;
+      }
+      return comparison * -1;
+    };
+    const sortedYears = inventors.sort(compareYears);
+    // using yearsLived array from 4.
+    const yearsLivedSorted = yearsLived.sort();
+    const yearsLivedReverse = yearsLivedSorted.reverse();
+    let i = 0;
+    for (let person of sortedYears) {
+      person.age = yearsLivedReverse[i];
+      i++;
+    }
+    console.table(sortedYears);
+    console.log("");
+    console.log("");
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    console.log("EXERCISE #6: This exercise was done in Chrome Dev Tools based on a Wikipedia website where a list was created of Boulevards in Paris that contained 'de' anywhere in the name.");
+    // const names = document.querySelectorAll(".mw-category a");
+    // const listOfNames = [];
+    // const deNames = [];
+    // for (let name of names) {
+    //   listOfNames.push(name.innerText);
+    // }
+    // for (let name of listOfNames) {
+    //   if (name.includes("de")) {
+    //     deNames.push(name);
+    //   }
+    // }
+    // console.log(deNames);
+    console.log("The code is commented out in this file since it can't be run in this environment. The following list of actions is written in code in this file.");
+    console.log("Accessed the list of names through the DOM and retrieved their innerText attributes. Looped through those names to see if it contained 'de'. The final array was then logged out to the console in Chrome Dev Tools.");
+    console.log("");
+    console.log("");
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    console.log("EXERCISE #7: A list of people sorted alphabetically by last name in an array:");
+    console.log(people.sort());
+    console.log("");
+    console.log("");
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+    console.log("EXERCISE #8: The total number of instances for each unique item in array:");
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const tempNames = [];
+    const tempTotals = [];
+    const object = {};
+    const totals = [];
+    for (let item of data) {
+      if (! tempNames.includes(item)) {
+        tempNames.push(item);
+      }
+    }
+    for (let singleItem of tempNames) {
+      let sum = 0;
+      for (let item of data) {
+        if (singleItem === item) {
+          sum++;
+        }
+      }
+      tempTotals.push(sum);
+    }
+    for (let i = 0; i < tempNames.length; i++) {
+      let object = {
+        transportation: tempNames[i],
+        instances: tempTotals[i]
+      };
+      totals.push(object);
+    }
+    console.table(totals);
 
   </script>
 </body>
